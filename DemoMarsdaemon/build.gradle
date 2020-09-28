@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 
+//apply plugin: 'com.lizhi.component.pods'
+//apply plugin: 'com.lizhi.component.prebuild' //预处理
 android {
     compileSdkVersion 28
     buildToolsVersion "28.0.2"
@@ -10,6 +12,12 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
+    }
+
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
     }
 }
 

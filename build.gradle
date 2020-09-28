@@ -4,10 +4,15 @@ buildscript {
     repositories {
         jcenter()
         google()
+        //公司私有服务器
+        maven { url 'http://maven.lizhi.fm:8081/nexus/content/repositories/releases/' }
+        maven { url 'http://maven.lizhi.fm:8081/nexus/content/repositories/snapshots/' }
+        maven { url 'http://maven.lizhi.fm:8081/nexus/content/groups/android_public/' }
+        maven { url 'http://maven.lizhi.fm:8081/nexus/content/repositories/android_uploadpub/' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.0'
-
+        classpath "com.lizhi.component.pods:litchi-pods-plugin:1.0.2"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -17,6 +22,11 @@ allprojects {
     repositories {
         jcenter()
         google()
+        //公司私有服务器
+        maven { url 'http://maven.lizhi.fm:8081/nexus/content/repositories/releases/' }
+        maven { url 'http://maven.lizhi.fm:8081/nexus/content/repositories/snapshots/' }
+        maven { url 'http://maven.lizhi.fm:8081/nexus/content/groups/android_public/' }
+        maven { url 'http://maven.lizhi.fm:8081/nexus/content/repositories/android_uploadpub/' }
     }
 }
 
