@@ -3,16 +3,18 @@ package com.marswin89.marsdaemon.demo;
 import android.content.Context;
 import android.util.Log;
 
-/*import com.lizhi.component.push.lzpushbase.constant.PushType;
+
+import com.lizhi.component.basetool.common.ProcessUtil;
+import com.lizhi.component.push.lzpushbase.constant.PushType;
 import com.lizhi.component.push.lzpushbase.utils.PushLogzUtil;
-import com.lizhi.component.push.lzpushsdk.PushSdkManager;*/
+import com.lizhi.component.push.lzpushsdk.PushSdkManager;
 import com.marswin89.marsdaemon.DaemonApplication;
 import com.marswin89.marsdaemon.DaemonConfigurations;
-/*import com.yibasan.lizhifm.sdk.platformtools.ApplicationContext;
-import com.yibasan.lizhifm.sdk.platformtools.utils.ProcessUtil;
+import com.yibasan.lizhifm.sdk.platformtools.ApplicationContext;
 
 import kotlin.Unit;
-import kotlin.jvm.functions.Function1;*/
+import kotlin.jvm.functions.Function1;
+
 
 /**
  * Implementation 1<br/>
@@ -58,13 +60,13 @@ public class MyApplication1 extends DaemonApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        //ApplicationContext.init(this);
+        ApplicationContext.init(this);
         Log.e("yqy", "onCreate thread:" + Thread.currentThread());
 
-        //initTask();
+        initTask();
     }
 
-/*
+
     private void initTask(){
         //注意做进程判断
         if (!ApplicationContext.isInMainProcess()) {
@@ -80,7 +82,7 @@ public class MyApplication1 extends DaemonApplication {
                 return null;
             }
         });
-    }*/
+    }
 
     class MyDaemonListener implements DaemonConfigurations.DaemonListener {
         @Override
