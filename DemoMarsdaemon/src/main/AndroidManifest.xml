@@ -21,6 +21,8 @@
             </intent-filter>
         </activity>
 
+        <service android:name=".TestService"/>
+
         <service android:name=".Service1" android:process=":process1"/>
         <receiver android:name=".Receiver1" android:process=":process1"/>
         <service android:name=".Service2" android:process=":process2"/>
