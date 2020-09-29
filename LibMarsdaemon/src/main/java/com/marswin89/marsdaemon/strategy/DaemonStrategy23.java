@@ -1,6 +1,8 @@
 package com.marswin89.marsdaemon.strategy;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -48,6 +50,7 @@ public class DaemonStrategy23 implements IDaemonStrategy{
 		
 		Thread t = new Thread(){
 			public void run() {
+				Log.e("Daemon","getProcessName="+getProcessName());
 				File indicatorDir = context.getDir(INDICATOR_DIR_NAME, Context.MODE_PRIVATE);
 				new NativeDaemonAPI21(context).doDaemon(
 						new File(indicatorDir, INDICATOR_PERSISTENT_FILENAME).getAbsolutePath(), 
@@ -78,6 +81,7 @@ public class DaemonStrategy23 implements IDaemonStrategy{
 		Thread t = new Thread(){
 			public void run() {
 				File indicatorDir = context.getDir(INDICATOR_DIR_NAME, Context.MODE_PRIVATE);
+				Log.e("Daemon","getProcessName="+getProcessName());
 				new NativeDaemonAPI21(context).doDaemon(
 						new File(indicatorDir, INDICATOR_DAEMON_ASSISTANT_FILENAME).getAbsolutePath(), 
 						new File(indicatorDir, INDICATOR_PERSISTENT_FILENAME).getAbsolutePath(), 
@@ -97,8 +101,18 @@ public class DaemonStrategy23 implements IDaemonStrategy{
 			configs.LISTENER.onDaemonAssistantStart(context);
 		}
 	}
-	
-	
+
+	private String getProcessName() {
+		try {
+			File file = new File("/proc/" + android.os.Process.myPid() + "/" + "cmdline");
+			BufferedReader mBufferedReader = new BufferedReader(new FileReader(file));
+			return mBufferedReader.readLine();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 	@Override
 	public void onDaemonDead() {
 		if(sendBroadcastByAmsBinder()){

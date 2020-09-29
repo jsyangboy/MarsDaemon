@@ -67,11 +67,11 @@ public interface IDaemonStrategy {
 			}
 			int sdk = Build.VERSION.SDK_INT;
 			switch (sdk) {
-				case 23:
+				case 23: //Android 6.0
 					mDaemonStrategy = new DaemonStrategy23();
 					break;
 					
-				case 22:
+				case 22: //Android
 					mDaemonStrategy = new DaemonStrategy22();
 					break;
 				

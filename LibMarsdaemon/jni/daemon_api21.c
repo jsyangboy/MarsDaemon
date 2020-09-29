@@ -73,15 +73,32 @@ void notify_daemon_observer(unsigned char is_persistent, char* observer_file_pat
 }
 
 notify_and_waitfor(char *observer_self_path, char *observer_daemon_path){
+
+    /**
+    * 只读的模式打开文件（observer_self_path）
+    */
 	int observer_self_descriptor = open(observer_self_path, O_RDONLY);
+
+	/**
+	* 如果文件打开失败创建文件
+	* O_CREAT：若欲打开的文件不存在则自动建立该文件
+	* S_IRUSR或S_IREAD,  400权限，代表该文件所有者具有可读取的权限。
+    * S_IWUSR或S_IWRITE, 200权限，代表该文件所有者具有可写入的权限。
+	*/
 	if (observer_self_descriptor == -1){
 		observer_self_descriptor = open(observer_self_path, O_CREAT, S_IRUSR | S_IWUSR);
 	}
+
+	/**
+     * 只读的模式打开文件（observer_daemon_path）
+     */
 	int observer_daemon_descriptor = open(observer_daemon_path, O_RDONLY);
 	while (observer_daemon_descriptor == -1){
 		usleep(1000);
 		observer_daemon_descriptor = open(observer_daemon_path, O_RDONLY);
 	}
+
+	//删除指定的文件
 	remove(observer_daemon_path);
 	LOGE("Watched >>>>OBSERVER<<<< has been ready...");
 }
@@ -96,6 +113,10 @@ int lock_file(char* lock_file_path){
     if (lockFileDescriptor == -1){
         lockFileDescriptor = open(lock_file_path, O_CREAT, S_IRUSR);
     }
+
+    /**
+    * 阻塞模式，程序会一直等待。
+    */
     int lockRet = flock(lockFileDescriptor, LOCK_EX);
     if (lockRet == -1){
         LOGE("lock file failed >> %s <<", lock_file_path);
